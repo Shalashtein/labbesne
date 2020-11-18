@@ -96,6 +96,15 @@ Spree.config do |config|
   # )
 end
 
+Spree::Event.subscribe 'order_finalized' do |event|
+  order = event.payload[:order]
+  puts "ooooooooooooooooooooooo"
+  puts ""
+  puts order
+  puts ""
+  puts "ooooooooooooooooooooooo"
+end
+
 Spree::Frontend::Config.configure do |config|
   config.locale = 'en'
 end
