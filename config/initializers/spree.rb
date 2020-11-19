@@ -100,7 +100,11 @@ Spree::Event.subscribe 'order_finalized' do |event|
   order = event.payload[:order]
   puts "ooooooooooooooooooooooo"
   puts ""
-  puts order
+  order.line_items.each do |item|
+    puts "**********************"
+    puts item.variant.product.name
+    puts "**********************"
+  end
   puts ""
   puts "ooooooooooooooooooooooo"
 end
@@ -115,11 +119,11 @@ Spree::Backend::Config.configure do |config|
   # Uncomment and change the following configuration if you want to add
   # a new menu item:
   #
-  # config.menu_items << config.class::MenuItem.new(
-  #   [:section],
-  #   'icon-name',
-  #   url: 'https://solidus.io/'
-  # )
+  config.menu_items << config.class::MenuItem.new(
+    [:merchantOrder],
+    'icon-name',
+    url: 'https://solidus.io/admin/test'
+  )
 end
 
 Spree::Api::Config.configure do |config|
