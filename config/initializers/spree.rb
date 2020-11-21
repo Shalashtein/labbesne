@@ -59,6 +59,10 @@ Spree.config do |config|
   # See https://github.com/solidusio/solidus/pull/3645 for more info.
   config.run_order_validations_on_order_updater = true
 
+  Spree::Role.find_or_create_by(name: 'merchant')
+  Spree::Role.find_or_create_by(name: 'data')
+  Spree::Role.find_or_create_by(name: 'stylist')
+
   # Permission Sets:
 
   # Uncomment and customize the following line to add custom permission sets
@@ -104,6 +108,8 @@ Spree::Event.subscribe 'order_finalized' do |event|
     puts "**********************"
     puts item.variant.product.name
     puts "**********************"
+    task = Task.new(spree_products_id: item.variant.product.id, notified: false, sent: false, recieved: false)
+    task.save!
   end
   puts ""
   puts "ooooooooooooooooooooooo"
