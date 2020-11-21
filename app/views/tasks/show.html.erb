@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Spree products:</strong>
+  <%= @task.spree_products_id %>
+</p>
+
+<p>
+  <strong>Notified:</strong>
+  <%= @task.notified %>
+</p>
+
+<p>
+  <strong>Sent:</strong>
+  <%= @task.sent %>
+</p>
+
+<p>
+  <strong>Recieved:</strong>
+  <%= @task.recieved %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

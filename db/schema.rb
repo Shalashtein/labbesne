@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_163309) do
+ActiveRecord::Schema.define(version: 2020_11_21_153103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1210,10 +1210,21 @@ ActiveRecord::Schema.define(version: 2020_11_15_163309) do
     t.datetime "updated_at", precision: 6
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.bigint "spree_products_id", null: false
+    t.boolean "notified"
+    t.boolean "sent"
+    t.boolean "recieved"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["spree_products_id"], name: "index_tasks_on_spree_products_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "spree_promotion_code_batches", "spree_promotions", column: "promotion_id"
   add_foreign_key "spree_promotion_codes", "spree_promotion_code_batches", column: "promotion_code_batch_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_categories", column: "tax_category_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_rates", column: "tax_rate_id"
   add_foreign_key "spree_wallet_payment_sources", "spree_users", column: "user_id"
+  add_foreign_key "tasks", "spree_products", column: "spree_products_id"
 end
