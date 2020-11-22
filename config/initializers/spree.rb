@@ -121,8 +121,6 @@ end
 
 Spree::Backend::Config.configure do |config|
   config.locale = 'en'
-
-  # Uncomment and change the following configuration if you want to add
   # a new menu item:
   #
   config.menu_items << config.class::MenuItem.new(

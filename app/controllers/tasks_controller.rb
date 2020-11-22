@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   attr_accessor :spree_products_id, :notified, :sent, :recieved
 
+
   # GET /tasks
   # GET /tasks.json
   def index
