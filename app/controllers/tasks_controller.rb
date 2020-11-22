@@ -1,4 +1,4 @@
-class TasksController < ApplicationController
+class TasksController < Spree::Admin::ResourceController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   attr_accessor :spree_products_id, :notified, :sent, :recieved
 
