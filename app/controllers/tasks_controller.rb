@@ -5,7 +5,10 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+    set_tasks
+    if @role === 'merchant' or @role === 'admin'
     @tasks = Task.all
+    end
   end
 
   # GET /tasks/1
@@ -70,6 +73,10 @@ class TasksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
+    end
+
+    def set_tasks
+      @role ||= spree_current_user.spree_roles.first.name
     end
 
     # Only allow a list of trusted parameters through.
