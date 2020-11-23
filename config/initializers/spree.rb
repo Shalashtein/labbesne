@@ -108,7 +108,7 @@ Spree::Event.subscribe 'order_finalized' do |event|
     puts "**********************"
     puts item.variant.product.name
     puts "**********************"
-    task = Task.new(spree_products_id: item.variant.product.id,quantity: item.quantity, notified: false, sent: false, recieved: false)
+    task = Task.new(spree_products_id: item.variant.product.id,quantity: item.quantity,merchant: "", notified: false, sent: false, recieved: false)
     task.save!
   end
   puts ""
@@ -123,11 +123,11 @@ Spree::Backend::Config.configure do |config|
   config.locale = 'en'
   # a new menu item:
   #
-  config.menu_items << config.class::MenuItem.new(
-    [:merchantOrder],
-    'icon-name',
-    url: 'https://solidus.io/admin/test'
-  )
+  #config.menu_items << config.class::MenuItem.new(
+  #  [:merchantOrder],
+  #  'icon-name',
+  #  url: 'https://solidus.io/admin/test'
+  #)
 end
 
 Spree::Api::Config.configure do |config|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_23_084939) do
+ActiveRecord::Schema.define(version: 2020_11_23_091100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,12 @@ ActiveRecord::Schema.define(version: 2020_11_23_084939) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "merchants", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "spree_addresses", id: :serial, force: :cascade do |t|
@@ -1218,6 +1224,8 @@ ActiveRecord::Schema.define(version: 2020_11_23_084939) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "quantity"
+    t.bigint "merchant_id", null: false
+    t.index ["merchant_id"], name: "index_tasks_on_merchant_id"
     t.index ["spree_products_id"], name: "index_tasks_on_spree_products_id"
   end
 
@@ -1227,5 +1235,6 @@ ActiveRecord::Schema.define(version: 2020_11_23_084939) do
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_categories", column: "tax_category_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_rates", column: "tax_rate_id"
   add_foreign_key "spree_wallet_payment_sources", "spree_users", column: "user_id"
+  add_foreign_key "tasks", "merchants"
   add_foreign_key "tasks", "spree_products", column: "spree_products_id"
 end
