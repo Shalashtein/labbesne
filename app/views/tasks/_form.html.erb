@@ -7,7 +7,9 @@
     <%= f.association :spree_products %>
     <%= f.input :notified %>
     <%= f.input :sent %>
+    <%if @role === "admin"%>
     <%= f.input :recieved %>
+    <%end%>
   </div>
 
   <div class="form-actions">

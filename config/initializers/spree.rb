@@ -108,7 +108,7 @@ Spree::Event.subscribe 'order_finalized' do |event|
     puts "**********************"
     puts item.variant.product.name
     puts "**********************"
-    task = Task.new(spree_products_id: item.variant.product.id, notified: false, sent: false, recieved: false)
+    task = Task.new(spree_products_id: item.variant.product.id,quantity: item.quantity, notified: false, sent: false, recieved: false)
     task.save!
   end
   puts ""

@@ -1,4 +1,4 @@
-class TasksController < Spree::Admin::ResourceController
+class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   attr_accessor :spree_products_id, :notified, :sent, :recieved
 
@@ -8,7 +8,7 @@ class TasksController < Spree::Admin::ResourceController
   def index
     set_tasks
     if @role === 'merchant' or @role === 'admin'
-    @tasks = Task.all
+    @tasks = ::Task.all
     end
   end
 
@@ -82,6 +82,6 @@ class TasksController < Spree::Admin::ResourceController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:spree_products_id, :notified, :sent, :recieved)
+      params.require(:task).permit(:spree_products_id,:quantity, :notified, :sent, :recieved)
     end
 end
