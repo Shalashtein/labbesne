@@ -60,6 +60,10 @@ Spree.config do |config|
   config.run_order_validations_on_order_updater = true
 
   Spree::Role.find_or_create_by(name: 'merchant')
+  Spree::PermittedAttributes.user_attributes << [:merchant_id]
+  Spree.config do |config|
+    config.roles.assign_permissions :merchant, ['Spree::PermissionSets::Merchant']
+  end
   Spree::Role.find_or_create_by(name: 'data')
   Spree::Role.find_or_create_by(name: 'stylist')
 
@@ -102,17 +106,14 @@ end
 
 Spree::Event.subscribe 'order_finalized' do |event|
   order = event.payload[:order]
-  puts "ooooooooooooooooooooooo"
-  puts ""
   order.line_items.each do |item|
-    puts "**********************"
-    puts item.variant.product.name
-    puts "**********************"
-    task = Task.new(spree_products_id: item.variant.product.id,quantity: item.quantity,merchant: "", notified: false, sent: false, recieved: false)
+    m = Merchant.where(name: item.variant.product.property('Merchant')).first
+    if m.nil?
+      m = Merchant.new(name: "missing")
+    end
+    task = Task.new(spree_products_id: item.variant.product.id,quantity: item.quantity,merchant: m, notified: false, sent: false, recieved: false)
     task.save!
   end
-  puts ""
-  puts "ooooooooooooooooooooooo"
 end
 
 Spree::Frontend::Config.configure do |config|

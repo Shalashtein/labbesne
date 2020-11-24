@@ -1,5 +1,6 @@
 class MerchantsController < ApplicationController
   before_action :set_merchant, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_spree_user!
 
   # GET /merchants
   # GET /merchants.json
@@ -15,6 +16,10 @@ class MerchantsController < ApplicationController
   # GET /merchants/new
   def new
     @merchant = Merchant.new
+  end
+
+  def collection
+    return Merchant.all
   end
 
   # GET /merchants/1/edit

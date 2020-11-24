@@ -1,14 +1,25 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   attr_accessor :spree_products_id, :notified, :sent, :recieved
+  before_action :authenticate_spree_user!
+  before_action :checker
 
 
   # GET /tasks
   # GET /tasks.json
   def index
     set_tasks
-    if @role === 'merchant' or @role === 'admin'
-    @tasks = ::Task.all
+    if @role === 'admin'
+      @tasks = Task.all
+    end
+    if @role === 'merchant'
+      @tasks = Task.where(merchant: spree_current_user.merchant_id)
+    end
+  end
+  # If customer tried to access tasks he's redirected to root
+  def checker
+    if spree_current_user.spree_roles.all.first.nil?
+      redirect_to('/')
     end
   end
 

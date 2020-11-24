@@ -2,11 +2,13 @@
 
 <h1>Tasks</h1>
 <h1><%= @role %></h1>
+<%= link_to "Log Out", spree_logout_path, method: :delete %>
 
 <table>
   <thead>
     <tr>
       <th>Spree products</th>
+      <th>Quantity</th>
       <th>Notified</th>
       <th>Sent</th>
       <th>Recieved</th>

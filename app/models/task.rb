@@ -1,4 +1,4 @@
 class Task < ApplicationRecord
   belongs_to :spree_products, class_name: 'Spree::Product'
-  has_one :merchant
+  belongs_to :merchant, optional: true
 end

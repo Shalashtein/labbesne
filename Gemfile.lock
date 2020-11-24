@@ -397,6 +397,7 @@ DEPENDENCIES
   autoprefixer-rails
   bootsnap (>= 1.4.2)
   byebug
+  cancancan
   capybara (>= 2.15)
   dotenv-rails
   font-awesome-sass

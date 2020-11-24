@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_23_091100) do
+ActiveRecord::Schema.define(version: 2020_11_23_092223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1131,8 +1131,10 @@ ActiveRecord::Schema.define(version: 2020_11_23_091100) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.bigint "merchant_id"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true
+    t.index ["merchant_id"], name: "index_spree_users_on_merchant_id"
     t.index ["reset_password_token"], name: "index_spree_users_on_reset_password_token_solidus_auth_devise", unique: true
     t.index ["spree_api_key"], name: "index_spree_users_on_spree_api_key"
   end
@@ -1234,6 +1236,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_091100) do
   add_foreign_key "spree_promotion_codes", "spree_promotion_code_batches", column: "promotion_code_batch_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_categories", column: "tax_category_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_rates", column: "tax_rate_id"
+  add_foreign_key "spree_users", "merchants"
   add_foreign_key "spree_wallet_payment_sources", "spree_users", column: "user_id"
   add_foreign_key "tasks", "merchants"
   add_foreign_key "tasks", "spree_products", column: "spree_products_id"
