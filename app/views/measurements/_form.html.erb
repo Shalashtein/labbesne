@@ -1,0 +1,19 @@
+
+<%= simple_form_for(@measurement) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.association :spree_users %>
+    <%= f.input :height %>
+    <%= f.input :weight %>
+    <%= f.input :shirt %>
+    <%= f.input :pants %>
+    <%= f.input :shoes %>
+    <%= f.association :bodies %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

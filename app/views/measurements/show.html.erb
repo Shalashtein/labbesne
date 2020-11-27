@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Spree users:</strong>
+  <%= @measurement.spree_users_id %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @measurement.height %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @measurement.weight %>
+</p>
+
+<p>
+  <strong>Shirt:</strong>
+  <%= @measurement.shirt %>
+</p>
+
+<p>
+  <strong>Pants:</strong>
+  <%= @measurement.pants %>
+</p>
+
+<p>
+  <strong>Shoes:</strong>
+  <%= @measurement.shoes %>
+</p>
+
+<p>
+  <strong>Bodies:</strong>
+  <%= @measurement.bodies_id %>
+</p>
+
+<%= link_to 'Edit', edit_measurement_path(@measurement) %> |
+<%= link_to 'Back', measurements_path %>
