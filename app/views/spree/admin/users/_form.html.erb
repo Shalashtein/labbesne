@@ -34,11 +34,11 @@
         </ul>
       </div>
       <div data-hook="admin_user_form_merchant_fields" class="col-6">
-      <%= f.field_container :merchant do %>
-        <%= f.label :merchant %>
-        <%= f.select :merchant_id, options_for_select(Merchant.all.map{|s|[s.name, s.id]}) %>
-      <% end %>
-  </div>
+        <%= f.field_container :merchant do %>
+          <%= f.label :merchant %>
+          <%= f.select :merchant_id, options_for_select(Merchant.all.map{|s|[s.name, s.id]}) %>
+        <% end %>
+      </div>
     <% end %>
 
     <% if Spree::Config[:can_restrict_stock_management] && can?(:show, Spree::StockLocation) %>

@@ -61,6 +61,7 @@ Spree.config do |config|
 
   Spree::Role.find_or_create_by(name: 'merchant')
   Spree::PermittedAttributes.user_attributes << [:merchant_id]
+  Spree::PermittedAttributes.user_attributes << [:measurement_id]
   Spree::Role.find_or_create_by(name: 'data')
   Spree::Role.find_or_create_by(name: 'stylist')
 
