@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Lifestyles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Spree user</th>
+      <th>Work</th>
+      <th>Physical</th>
+      <th>Phsyical days</th>
+      <th>Student</th>
+      <th>Student days</th>
+      <th>Social</th>
+      <th>Social days</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lifestyles.each do |lifestyle| %>
+      <tr>
+        <td><%= lifestyle.spree_user_id %></td>
+        <td><%= lifestyle.work_id %></td>
+        <td><%= lifestyle.physical_id %></td>
+        <td><%= lifestyle.phsyical_days %></td>
+        <td><%= lifestyle.student %></td>
+        <td><%= lifestyle.student_days %></td>
+        <td><%= lifestyle.social %></td>
+        <td><%= lifestyle.social_days %></td>
+        <td><%= link_to 'Show', lifestyle %></td>
+        <td><%= link_to 'Edit', edit_lifestyle_path(lifestyle) %></td>
+        <td><%= link_to 'Destroy', lifestyle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lifestyle', new_lifestyle_path %>

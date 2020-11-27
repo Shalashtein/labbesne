@@ -1,0 +1,20 @@
+
+<%= simple_form_for(@lifestyle) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.association :spree_user %>
+    <%= f.association :work %>
+    <%= f.association :physical %>
+    <%= f.input :phsyical_days %>
+    <%= f.input :student %>
+    <%= f.input :student_days %>
+    <%= f.input :social %>
+    <%= f.input :social_days %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

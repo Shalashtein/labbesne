@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_100118) do
+ActiveRecord::Schema.define(version: 2020_11_27_160809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,22 @@ ActiveRecord::Schema.define(version: 2020_11_25_100118) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "lifestyles", force: :cascade do |t|
+    t.bigint "spree_user_id", null: false
+    t.bigint "work_id", null: false
+    t.bigint "physical_id", null: false
+    t.string "phsyical_days", default: [], array: true
+    t.boolean "student"
+    t.string "student_days", default: [], array: true
+    t.boolean "social"
+    t.string "social_days", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["physical_id"], name: "index_lifestyles_on_physical_id"
+    t.index ["spree_user_id"], name: "index_lifestyles_on_spree_user_id"
+    t.index ["work_id"], name: "index_lifestyles_on_work_id"
+  end
+
   create_table "measurements", force: :cascade do |t|
     t.bigint "spree_users_id", null: false
     t.integer "height"
@@ -90,6 +106,12 @@ ActiveRecord::Schema.define(version: 2020_11_25_100118) do
 
   create_table "merchants", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "physicals", force: :cascade do |t|
+    t.string "activity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -1253,7 +1275,19 @@ ActiveRecord::Schema.define(version: 2020_11_25_100118) do
     t.index ["spree_products_id"], name: "index_tasks_on_spree_products_id"
   end
 
+  create_table "works", force: :cascade do |t|
+    t.string "type"
+    t.string "code"
+    t.string "location"
+    t.string "days", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "lifestyles", "physicals"
+  add_foreign_key "lifestyles", "spree_users"
+  add_foreign_key "lifestyles", "works"
   add_foreign_key "measurements", "bodies", column: "bodies_id"
   add_foreign_key "measurements", "spree_users", column: "spree_users_id"
   add_foreign_key "spree_promotion_code_batches", "spree_promotions", column: "promotion_id"

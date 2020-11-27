@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :lifestyles
+  resources :physicals
+  resources :works
   resources :merchants
   resources :tasks
   resources :measurements

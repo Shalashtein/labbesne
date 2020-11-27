@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @work.type %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @work.code %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @work.location %>
+</p>
+
+<p>
+  <strong>Days:</strong>
+  <%= @work.days %>
+</p>
+
+<%= link_to 'Edit', edit_work_path(@work) %> |
+<%= link_to 'Back', works_path %>
