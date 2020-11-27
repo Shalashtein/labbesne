@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_23_092223) do
+ActiveRecord::Schema.define(version: 2020_11_25_100118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,12 @@ ActiveRecord::Schema.define(version: 2020_11_23_092223) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "bodies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -66,6 +72,20 @@ ActiveRecord::Schema.define(version: 2020_11_23_092223) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "measurements", force: :cascade do |t|
+    t.bigint "spree_users_id", null: false
+    t.integer "height"
+    t.integer "weight"
+    t.string "shirt"
+    t.string "pants"
+    t.integer "shoes"
+    t.bigint "bodies_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bodies_id"], name: "index_measurements_on_bodies_id"
+    t.index ["spree_users_id"], name: "index_measurements_on_spree_users_id"
   end
 
   create_table "merchants", force: :cascade do |t|
@@ -1132,8 +1152,10 @@ ActiveRecord::Schema.define(version: 2020_11_23_092223) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.bigint "merchant_id"
+    t.bigint "measurements_id"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true
+    t.index ["measurements_id"], name: "index_spree_users_on_measurements_id"
     t.index ["merchant_id"], name: "index_spree_users_on_merchant_id"
     t.index ["reset_password_token"], name: "index_spree_users_on_reset_password_token_solidus_auth_devise", unique: true
     t.index ["spree_api_key"], name: "index_spree_users_on_spree_api_key"
@@ -1232,10 +1254,13 @@ ActiveRecord::Schema.define(version: 2020_11_23_092223) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "measurements", "bodies", column: "bodies_id"
+  add_foreign_key "measurements", "spree_users", column: "spree_users_id"
   add_foreign_key "spree_promotion_code_batches", "spree_promotions", column: "promotion_id"
   add_foreign_key "spree_promotion_codes", "spree_promotion_code_batches", column: "promotion_code_batch_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_categories", column: "tax_category_id"
   add_foreign_key "spree_tax_rate_tax_categories", "spree_tax_rates", column: "tax_rate_id"
+  add_foreign_key "spree_users", "measurements", column: "measurements_id"
   add_foreign_key "spree_users", "merchants"
   add_foreign_key "spree_wallet_payment_sources", "spree_users", column: "user_id"
   add_foreign_key "tasks", "merchants"

@@ -8,3 +8,9 @@
 
 Spree::Core::Engine.load_seed if defined?(Spree::Core)
 Spree::Auth::Engine.load_seed if defined?(Spree::Auth)
+bodies_arr = ['V Shape', 'Pear Shape', 'Column Shape', 'Round Shape', 'Hourglass Shape']
+for bodies_arr.each do |b|
+  body = Body.find_or_initialize_by(name: b)
+  body.name = b
+  body.save!
+end
